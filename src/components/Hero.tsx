@@ -1,8 +1,16 @@
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Clock } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useBookingModal } from "@/hooks/useBookingModal";
+import { BUSINESS_INFO } from "@/lib/constants";
 
 const Hero = () => {
+  const { open: openBooking } = useBookingModal();
+
+  const handleLocationClick = () => {
+    window.open(BUSINESS_INFO.googleMapsUrl, "_blank");
+  };
+
   return (
     <section
       id="inicio"
@@ -63,11 +71,11 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <Button variant="hero" size="xl" className="group">
+            <Button variant="hero" size="xl" className="group" onClick={openBooking}>
               <Calendar className="w-5 h-5 mr-2 group-hover:animate-float" />
               Agendar Horário
             </Button>
-            <Button variant="outline" size="xl">
+            <Button variant="outline" size="xl" onClick={handleLocationClick}>
               <MapPin className="w-5 h-5 mr-2" />
               Nossa Localização
             </Button>

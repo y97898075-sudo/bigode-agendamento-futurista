@@ -2,9 +2,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Scissors } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useBookingModal } from "@/hooks/useBookingModal";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { open: openBooking } = useBookingModal();
 
   const navLinks = [
     { href: "#inicio", label: "Início" },
@@ -14,6 +16,15 @@ const Header = () => {
     { href: "#contato", label: "Contato" },
   ];
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="container mx-auto px-4">
@@ -21,6 +32,7 @@ const Header = () => {
           {/* Logo */}
           <motion.a
             href="#inicio"
+            onClick={(e) => handleNavClick(e, "#inicio")}
             className="flex items-center gap-3"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -46,12 +58,13 @@ const Header = () => {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium"
               >
                 {link.label}
               </a>
             ))}
-            <Button variant="hero" size="lg">
+            <Button variant="hero" size="lg" onClick={openBooking}>
               Agendar Agora
             </Button>
           </motion.div>
@@ -80,13 +93,13 @@ const Header = () => {
                   <a
                     key={link.href}
                     href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium py-2"
-                    onClick={() => setIsMenuOpen(false)}
                   >
                     {link.label}
                   </a>
                 ))}
-                <Button variant="hero" size="lg" className="mt-2">
+                <Button variant="hero" size="lg" className="mt-2" onClick={openBooking}>
                   Agendar Agora
                 </Button>
               </div>

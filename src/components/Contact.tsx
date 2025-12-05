@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Clock, Instagram, Facebook, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useBookingModal } from "@/hooks/useBookingModal";
+import { BUSINESS_INFO, getWhatsAppUrl, WHATSAPP_MESSAGES } from "@/lib/constants";
 
 const businessHours = [
   { day: "Segunda a Sexta", hours: "09:00 - 20:00" },
@@ -9,6 +11,20 @@ const businessHours = [
 ];
 
 const Contact = () => {
+  const { open: openBooking } = useBookingModal();
+
+  const handleMapClick = () => {
+    window.open(BUSINESS_INFO.googleMapsUrl, "_blank");
+  };
+
+  const handlePhoneClick = () => {
+    window.location.href = `tel:${BUSINESS_INFO.phone}`;
+  };
+
+  const handleWhatsAppClick = () => {
+    window.open(getWhatsAppUrl(WHATSAPP_MESSAGES.booking), "_blank");
+  };
+
   return (
     <section id="contato" className="py-24 bg-card relative overflow-hidden">
       {/* Background Effects */}
@@ -52,11 +68,10 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold mb-1 text-foreground">Localização</h3>
-                  <p className="text-muted-foreground">
-                    Rua das Barbearias, 123<br />
-                    Centro - São Paulo, SP
+                  <p className="text-muted-foreground whitespace-pre-line">
+                    {BUSINESS_INFO.addressShort}
                   </p>
-                  <Button variant="link" className="px-0 mt-2">
+                  <Button variant="link" className="px-0 mt-2" onClick={handleMapClick}>
                     Ver no mapa →
                   </Button>
                 </div>
@@ -71,8 +86,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold mb-1 text-foreground">Telefone</h3>
-                  <p className="text-muted-foreground">(11) 99999-9999</p>
-                  <Button variant="link" className="px-0 mt-2">
+                  <p className="text-muted-foreground">{BUSINESS_INFO.phoneFormatted}</p>
+                  <Button variant="link" className="px-0 mt-2" onClick={handlePhoneClick}>
                     Ligar agora →
                   </Button>
                 </div>
@@ -107,23 +122,27 @@ const Contact = () => {
             {/* Social Links */}
             <div className="flex gap-4">
               <a
-                href="#"
+                href={BUSINESS_INFO.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-12 h-12 rounded-xl glass flex items-center justify-center text-muted-foreground hover:text-primary hover:box-glow transition-all duration-300"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="#"
+                href={BUSINESS_INFO.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-12 h-12 rounded-xl glass flex items-center justify-center text-muted-foreground hover:text-primary hover:box-glow transition-all duration-300"
               >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a
-                href="#"
+              <button
+                onClick={handleWhatsAppClick}
                 className="w-12 h-12 rounded-xl glass flex items-center justify-center text-muted-foreground hover:text-primary hover:box-glow transition-all duration-300"
               >
                 <MessageCircle className="w-5 h-5" />
-              </a>
+              </button>
             </div>
           </motion.div>
 
@@ -149,10 +168,10 @@ const Contact = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xs">
-                <Button variant="hero" size="lg" className="w-full">
+                <Button variant="hero" size="lg" className="w-full" onClick={openBooking}>
                   Agendar Agora
                 </Button>
-                <Button variant="outline" size="lg" className="w-full">
+                <Button variant="outline" size="lg" className="w-full" onClick={handleWhatsAppClick}>
                   WhatsApp
                 </Button>
               </div>

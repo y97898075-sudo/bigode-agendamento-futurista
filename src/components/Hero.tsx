@@ -3,6 +3,7 @@ import { Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBookingModal } from "@/hooks/useBookingModal";
 import { BUSINESS_INFO } from "@/lib/constants";
+import heroBackground from "@/assets/hero-barber.jpg";
 
 const Hero = () => {
   const { open: openBooking } = useBookingModal();
@@ -16,20 +17,19 @@ const Hero = () => {
       id="inicio"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-      
-      {/* Grid Pattern */}
+      {/* Background Image */}
       <div 
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `linear-gradient(hsl(211 100% 50% / 0.1) 1px, transparent 1px),
-                           linear-gradient(90deg, hsl(211 100% 50% / 0.1) 1px, transparent 1px)`,
-          backgroundSize: '50px 50px'
-        }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBackground})` }}
       />
+      
+      {/* Dark Overlay with Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/70" />
+      
+      {/* Subtle Glow Effects */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">

@@ -33,6 +33,16 @@ const Hero = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="inline-block px-4 py-2 rounded-full glass text-primary text-sm font-semibold mb-6 neon-border">
+              ✨ A Barbearia do Futuro
+            </span>
+          </motion.div>
+
           <motion.h1
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
             initial={{ opacity: 0, y: 30 }}
